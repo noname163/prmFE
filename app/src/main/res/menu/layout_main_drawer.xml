@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group>
+        <item
+            android:id="@+id/nav_order"
+            android:icon="@drawable/ic_cart_white"
+            android:title="My Orders" />
+        <item
+            android:id="@+id/nav"
+            android:icon="@drawable/ic_cart_white"
+            android:title="My Orders" />
+        <item
+            android:id="@+id/setting"
+            android:icon="@drawable/ic_cart_white"
+            android:title="My Orders" />
+    </group>
+    <group>
+        <item android:title="User">
+            <menu>
+                <item
+                    android:id="@+id/nav_logout"
+                    android:icon="@drawable/ic_logout"
+                    android:title="Logout" />
+                <item
+                    android:id="@+id/nav_login"
+                    android:icon="@drawable/ic_login"
+                    android:title="Login" />
+            </menu>
+        </item>
+    </group>
+</menu>
