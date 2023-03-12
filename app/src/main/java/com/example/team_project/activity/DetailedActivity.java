@@ -35,6 +35,7 @@ public class DetailedActivity extends AppCompatActivity {
     ImageView addItems,removeItems,productImage;
     Toolbar toolbar;
     int totalQuantity=1;
+    Long productId=0l;
     int totalPrice=0;
     //Product
     Product product = null;
@@ -96,17 +97,8 @@ public class DetailedActivity extends AppCompatActivity {
         //Image View
         addItems = findViewById(R.id.add_item);
         removeItems = findViewById(R.id.remove_item);
-//        productImage = findViewById(R.id.detailed_img)
-        //Product
-        if(product!=null){
-            Glide.with(getApplicationContext()).load(product.getImg_url()).into(detailedImg);
-            detailedImg.setTag(product.getImg_url());
-            name.setText(product.getName());
-            rating.setText(product.getRating());
-            description.setText(product.getDescription());
-            price.setText(String.valueOf(product.getPrice()));
-            totalPrice=product.getPrice()*totalQuantity;
-        }
+        productImage = findViewById(R.id.detailed_img);
+
 
         if(productUserResponse!=null){
             Glide.with(getApplicationContext()).load(productUserResponse.getImageUrl()).into(detailedImg);
@@ -115,6 +107,7 @@ public class DetailedActivity extends AppCompatActivity {
 //            rating.setText(product.getRating());
 //            description.setText(product.getDescription());
             price.setText(String.valueOf(productUserResponse.getPrice()));
+            productId = productUserResponse.getId();
             totalPrice=productUserResponse.getPrice().intValue()*totalQuantity;
         }
 
@@ -128,15 +121,6 @@ public class DetailedActivity extends AppCompatActivity {
             totalPrice=popularProducts.getPrice()*totalQuantity;
         }
 
-        if(showAll!=null){
-            Glide.with(getApplicationContext()).load(showAll.getImg_url()).into(detailedImg);
-            detailedImg.setTag(showAll.getImg_url());
-            name.setText(showAll.getName());
-            rating.setText(showAll.getRating());
-            description.setText(showAll.getDescription());
-            price.setText(String.valueOf(showAll.getPrice()));
-            totalPrice=showAll.getPrice()*totalQuantity;
-        }
 
         if(productUserResponse!=null){
             Glide.with(getApplicationContext()).load(productUserResponse.getImageUrl()).into(detailedImg);
@@ -217,6 +201,7 @@ public class DetailedActivity extends AppCompatActivity {
         cartMap.put("currentTime",saveCurrentTime);
         cartMap.put("currentDate",saveCurrentDate);
         cartMap.put("totalQuantity",quantity.getText().toString());
+        cartMap.put("productId", productId);
         cartMap.put("totalPrice",totalPrice);
         firestore.collection("AddToCart").document(auth.getCurrentUser().getUid()).collection("User").add(cartMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override

@@ -23,6 +23,7 @@ import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.team_project.R;
+import com.example.team_project.activity.DetailedActivity;
 import com.example.team_project.activity.ShowAllActivity;
 import com.example.team_project.adapter.CategoryAdapter;
 import com.example.team_project.adapter.PopularProductsAdapter;
@@ -156,36 +157,30 @@ public class HomePageFragment extends Fragment {
 
         Retrofit retrofitClient = RetrofitClient.getClient();
         categoryService = new RetrofitClient().getClient().create(CategoryService.class);
-        System.out.println("Load data...");
         categoryService = retrofitClient.create(CategoryService.class);
         Call<List<Category>> call = categoryService.getCategories();
-        System.out.println("Load service...");
 
         call.enqueue(new Callback<List<Category>>() {
 
                          @Override
                          public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
-                             System.out.println("Load data...");
                              if (response.isSuccessful()) {
-                                 System.out.println("Success...");
                                  List<Category> categories = response.body();
                                  for (Category category : categories
                                  ) {
-                                     System.out.println("Category " + categories.toString());
                                      categoryList.add(category);
                                      categoryAdapter.notifyDataSetChanged();
                                      linearLayout.setVisibility(View.VISIBLE);
                                      progressDialog.dismiss();
-                                     System.out.println("Load data complted");
                                  }
                              } else {
-                                 System.out.println("Load data fail...");
+                                 Toast.makeText(getActivity(), "Load Category Fail", Toast.LENGTH_SHORT).show();
                              }
                          }
 
                          @Override
                          public void onFailure(Call<List<Category>> call, Throwable t) {
-                             System.out.println("Load data fail..." + t.getMessage());
+                             Toast.makeText(getActivity(), "Load Category Fail", Toast.LENGTH_SHORT).show();
                          }
                      });
 
@@ -199,50 +194,30 @@ public class HomePageFragment extends Fragment {
         pageable.setSize(10);
         pageable.setSortType("DESC");
         pageable.setOffSet(0);
+
         Call<PaginationResponse<List<ProductUserResponse>>> callProduct = productService.getProducts(pageable);
-        System.out.println("Call success now get response...");
         callProduct.enqueue(new Callback<PaginationResponse<List<ProductUserResponse>>>() {
             @Override
             public void onResponse(Call<PaginationResponse<List<ProductUserResponse>>> call, Response<PaginationResponse<List<ProductUserResponse>>> response) {
-                System.out.println("Load data in home page...");
 
                 if (response.isSuccessful()) {
-                    System.out.println("Success...");
                     PaginationResponse<List<ProductUserResponse>> paginationResponse = response.body();
                     List<ProductUserResponse> products = paginationResponse.getData();
                     for (ProductUserResponse product: products
                     ) {
-                        System.out.println("Product " + product.toString());
                         productList.add(product);
                         productUserResponseAdapter.notifyDataSetChanged();
-                        System.out.println("Load data complted");
                     }
                 } else {
-                    System.out.println("Load data fail...");
+                    Toast.makeText(getActivity(), "Load Product Fail", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<PaginationResponse<List<ProductUserResponse>>> call, Throwable t) {
-                System.out.println("Load data fail..." + t.getMessage());
+                Toast.makeText(getActivity(), "Load Product Fail", Toast.LENGTH_SHORT).show();
             }});
 
-//        db.collection("Products")
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            for (QueryDocumentSnapshot document : task.getResult()) {
-//                                Product product = document.toObject(Product.class);
-//                                productList.add(product);
-//                                productAdapter.notifyDataSetChanged();
-//                            }
-//                        } else {
-//                            Toast.makeText(getActivity(), ""+task.getException(), Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
 
 
         //Popular Products
@@ -276,14 +251,6 @@ public class HomePageFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        ImageSlider imageSlider = view.findViewById(R.id.image_slider);
-//        List<SlideModel> slideModels = new ArrayList<>();
-//
-//        slideModels.add(new SlideModel(R.drawable.banner1,"Discount On Shoes Items", ScaleTypes.CENTER_CROP));
-//        slideModels.add(new SlideModel(R.drawable.banner2,"Discount On Perfume", ScaleTypes.CENTER_CROP));
-//        slideModels.add(new SlideModel(R.drawable.banner3,"70%", ScaleTypes.CENTER_CROP));
-//        imageSlider.setImageList(slideModels);
-
 
     }
 

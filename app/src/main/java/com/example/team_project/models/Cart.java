@@ -1,27 +1,30 @@
 package com.example.team_project.models;
 
 public class Cart {
+    String cartId;
     String currentTime;
     String currentDate;
     String productName;
     String productPrice;
     String totalQuantity;
     String productImage;
+    Long productId;
     int totalPrice;
 
     public Cart() {
     }
 
-    public Cart(String currentTime, String currentDate, String productName, String productPrice, String totalQuantity, int totalPrice) {
+    public Cart(String currentTime, String currentDate, String productName, String productPrice, String totalQuantity, int totalPrice, Long productId) {
         this.currentTime = currentTime;
         this.currentDate = currentDate;
         this.productName = productName;
         this.productPrice = productPrice;
         this.totalQuantity = totalQuantity;
         this.totalPrice = totalPrice;
+        this.productId = productId;
     }
 
-    public Cart(String currentTime, String currentDate, String productName, String productPrice, String totalQuantity, String productImage, int totalPrice) {
+    public Cart(String currentTime, String currentDate, String productName, String productPrice, String totalQuantity, String productImage, int totalPrice, Long productId) {
         this.currentTime = currentTime;
         this.currentDate = currentDate;
         this.productName = productName;
@@ -29,6 +32,7 @@ public class Cart {
         this.totalQuantity = totalQuantity;
         this.productImage = productImage;
         this.totalPrice = totalPrice;
+        this.productId = productId;
     }
 
 
@@ -89,17 +93,33 @@ public class Cart {
         this.productImage = productImage;
     }
 
+    public Long getProductId() {
+        return productId;
+    }
 
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
+
+    public String getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(String cartId) {
+        this.cartId = cartId;
+    }
 
     @Override
     public String toString() {
         return "Cart{" +
-                "currentTime='" + currentTime + '\'' +
+                "cartId='" + cartId + '\'' +
+                ", currentTime='" + currentTime + '\'' +
                 ", currentDate='" + currentDate + '\'' +
                 ", productName='" + productName + '\'' +
                 ", productPrice='" + productPrice + '\'' +
                 ", totalQuantity='" + totalQuantity + '\'' +
                 ", productImage='" + productImage + '\'' +
+                ", productId=" + productId +
                 ", totalPrice=" + totalPrice +
                 '}';
     }

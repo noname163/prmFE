@@ -28,6 +28,12 @@
             android:name=".activity.CartActivity"
             android:exported="false" />
         <activity
+            android:name=".activity.OrderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ConfirmOrderActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.ShowAllActivity"
             android:exported="false" />
         <activity
